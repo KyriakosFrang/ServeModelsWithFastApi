@@ -1,0 +1,31 @@
+[tool.poetry]
+name = "nairobi"
+version = "0.1.0"
+description = ""
+authors = ["Kyriakos Fragkeskos <kyriakos.frangeskos@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+fastapi = "^0.96.0"
+uvicorn = "^0.22.0"
+python-jose = "^3.3.0"
+extras = "^1.0.0"
+cryptography = "^41.0.1"
+passlib = "^1.7.4"
+bcrypt = "^4.0.1"
+pydantic = {extras = ["dotenv"], version = "^1.10.9"}
+psycopg2-binary = "^2.9.6"
+scikit-learn = "^1.2.2"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.3.1"
+black = "^23.3.0"
+isort = "^5.12.0"
+autoflake = "^2.1.1"
+flake8 = "^6.0.0"
+ipykernel = "^6.23.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
