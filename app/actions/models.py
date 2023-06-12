@@ -1,19 +1,10 @@
 import pickle
-
-import psycopg2
 from fastapi import HTTPException
-from ..config import config
 
-async def get_model(model_id):
-    conn = psycopg2.connect(
-        host=config.DATABASE_URL,
-        database=config.POSTGRES_DB,
-        user=config.POSTGRES_USER,
-        password=config.POSTGRES_PASSWORD
-    )
 
+def get_model(db, model_id: int):
     select_query = "SELECT model_data FROM models WHERE id = %s;"
-    with conn.cursor() as cursor:
+    with db.cursor() as cursor:
         cursor.execute(select_query, (model_id,))
         result = cursor.fetchone()
         if result:
@@ -21,4 +12,4 @@ async def get_model(model_id):
             return pickle.loads(serialized_model)
         else:
             raise HTTPException(status_code=404, detail="Model not found")
-    conn.close()
+    db.close()

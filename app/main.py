@@ -1,15 +1,16 @@
-from typing import Dict
+from fastapi import Depends, FastAPI
 
-from fastapi import FastAPI
-import numpy as np
-from .data.ml_models import get_model
+from .db.postgress import get_connection
+from .dependencies import verify_api_key
+from .models.input_features import InputFeatures
+from .models.prediction import Prediction
+from .services import predict as predict_service
 
-app = FastAPI()
+app = FastAPI(title="Tutorial", version="0.0.1", dependencies=[Depends(verify_api_key)])
 
-@app.post("/predict/{model_id}")
-async def predict(model_id: int, input_data:list):
-    model =await  get_model(model_id)
-    # Use the loaded model for predictions using the input data
-    np_array = np.array(input_data)
-    prediction = model.predict(np_array.reshape(1,-1))
-    return {"prediction": int(prediction[0])}
+
+@app.post("/predict/{model_id}", response_model=Prediction)
+async def predict(model_id: int, input_data: InputFeatures, db=Depends(get_connection)):
+    return predict_service.predict(
+        model_id=model_id, input_data=input_data, db=db
+    ).dict()

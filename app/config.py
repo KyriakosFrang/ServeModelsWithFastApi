@@ -6,9 +6,13 @@ class AppConfig(BaseSettings):
     debug: bool = False
     DATABASE_URL: str
     POSTGRES_DB: str
-    POSTGRES_USER:str 
-    POSTGRES_PASSWORD:str
+    POSTGRES_USER: str
+    POSTGRES_PASSWORD: str
+
+    API_KEY: str
+
     class Config:
         env_file = ".env"  # Optional: Load settings from an environment file
 
-config = AppConfig() # type: ignore
+
+config = AppConfig()  # type: ignore
