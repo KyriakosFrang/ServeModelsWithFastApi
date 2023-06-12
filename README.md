@@ -13,7 +13,7 @@ It allows you to deploy machine learning models as RESTful APIs, providing predi
 ## Prerequisites
 
 - Python 3.10 or later
-- PostgreSQL 9.5 or later
+- PostgreSQL 9.6 or later
 - Docker
 - poetry (optional)
 
